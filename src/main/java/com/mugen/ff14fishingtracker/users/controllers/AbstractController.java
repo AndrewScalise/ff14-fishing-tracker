@@ -1,6 +1,7 @@
 package com.mugen.ff14fishingtracker.users.controllers;
 
 import com.mugen.ff14fishingtracker.users.models.User;
+import com.mugen.ff14fishingtracker.users.models.dao.FishDao;
 import com.mugen.ff14fishingtracker.users.models.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,6 +15,9 @@ public abstract class AbstractController {
 
     @Autowired
     protected UserDao userDao;
+
+    @Autowired
+    protected FishDao fishDao;
 
     public static final String userSessionKey = "user_id";
 
@@ -31,5 +35,6 @@ public abstract class AbstractController {
         HttpSession thisSession = request.getSession();
         setUserInSession(thisSession, user);
     }
+
 
 }

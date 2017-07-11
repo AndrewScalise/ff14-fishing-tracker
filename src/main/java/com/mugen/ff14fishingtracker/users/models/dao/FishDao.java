@@ -12,6 +12,8 @@ public interface FishDao extends CrudRepository<Fish, Integer> {
 
     List<Fish> findByAuthor(int authorId);
 
+    List<Fish> findAll();
+
     Fish findByUid(int uid);
 
 }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<form method="post">
+    <label>
+        <div>title</div>
+        <input type="text" name="name" th:value="${name}"></input>
+    </label>
+    <label>
+        <div>post</div>
+        <textarea name="time" th:text="${time}"></textarea>
+    </label>
+    <label>
+        <div>title</div>
+        <input type="text" name="bait" th:value="${bait}"></input>
+    </label>
+    <select path="location">
+        <options items="${locations}"/>
+    </select>
+    <div class="error" th:text="${error}"></div>
+    <button type="submit">Add Fish</button>
+</form>
+
+</body>
+</html>

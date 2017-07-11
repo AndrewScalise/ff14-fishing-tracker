@@ -22,7 +22,8 @@ public class User extends AbstractEntity {
     private List<Fish> fishes;
 
     //for hibernate
-    public User() {}
+    public User() {
+    }
 
     public User(String username, String password) {
 
