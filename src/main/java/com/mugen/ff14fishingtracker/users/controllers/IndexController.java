@@ -14,7 +14,7 @@ import java.util.List;
 @Controller
 public class IndexController extends AbstractController{
 
-    @RequestMapping(value = "/")
+    @RequestMapping(value = "/index")
     public String index(Model model){
         // Fetch users and pass to template
         List<User> users = userDao.findAll();

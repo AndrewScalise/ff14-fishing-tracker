@@ -5,8 +5,10 @@ import com.mugen.ff14fishingtracker.users.models.User;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -18,10 +20,10 @@ import java.util.HashMap;
 @Controller
 public class FishController extends AbstractController {
 
-    @RequestMapping(value="/addFish", method = RequestMethod.POST)
-    public String addFish(HttpServletRequest request, Model model){
-
-        //Implement add fish to user's list
+    @RequestMapping(value= "/addFish", method = RequestMethod.GET)
+    public String displayAddFishForm(Model model){
+        model.addAttribute(new Fish());
+        model.addAttribute("title", "Add Fish");
 
         //Create Hashmap for locations
         HashMap<Integer, String> locations = new HashMap<>();
@@ -70,6 +72,10 @@ public class FishController extends AbstractController {
         locations.put(197,"Shirogane");
         locations.put(198,"The Silver Canal");
 
+        model.addAttribute("locations", locations);
+
+
+
         //Create Array List for different weather
         ArrayList<String> weather = new ArrayList<>();
 
@@ -92,11 +98,28 @@ public class FishController extends AbstractController {
         weather.add("Umbral Wind");
         weather.add("Wind");
 
+        model.addAttribute("weather", weather);
+
+
+        return "addFish";
+    }
+
+    @RequestMapping(value="/addFish", method = RequestMethod.POST)
+    public String processAddFish(HttpServletRequest request, Model model){
+
+        //Implement add fish to user's list
+
+
+
         //get request parameters
         String name = request.getParameter("name");
         String time = request.getParameter("time");
         String bait = request.getParameter("bait");
         String error = request.getParameter("error");
+        String locations = request.getParameter("locations");
+        String weather = request.getParameter("weather");
+
+
         HttpSession session = request.getSession(true);
         int uid = (int) session.getAttribute(userSessionKey);
         User user = userDao.findByUid(uid);
@@ -104,15 +127,13 @@ public class FishController extends AbstractController {
         if(!name.equals(null)){
             Fish fish = new Fish(name, time, user, locations, weather, bait);
             fishDao.save(fish);
-            return "index";
+            return "/index";
         }
         else if(!error.equals(null)){
-            String errored = "Invalid fish";
-            model.addAttribute("error", errored);
-            return "addFish";
+            return "You must be logged in to add a fish!";
         }
 
-        return "redirect:index";
+        return "redirect:/index";
     }
 
 

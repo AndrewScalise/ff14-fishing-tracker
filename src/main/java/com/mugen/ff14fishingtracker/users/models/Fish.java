@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -16,19 +15,19 @@ import java.util.HashMap;
 public class Fish extends AbstractEntity {
 
     private String name;
-    private String eorzeanTime;
+    private String time;
     private User author;
-    private HashMap<Integer, String> location;
-    private ArrayList<String> weather;
+    private String location;
+    private String weather;
     private String bait;
 
     public Fish() {}
 
-    public Fish(String name, String eorzeanTime, User author, HashMap<Integer, String> location, ArrayList<String> weather, String bait){
+    public Fish(String name, String time, User author, String location, String weather, String bait){
         super();
 
         this.name = name;
-        this.eorzeanTime = eorzeanTime;
+        this.time = time;
         this.author = author;
         this.location = location;
         this.weather = weather;
@@ -43,15 +42,15 @@ public class Fish extends AbstractEntity {
 
     @NotNull
     @Column(name="time")
-    public String getEorzeanTime(){return eorzeanTime;}
+    public String getTime(){return time;}
 
     @NotNull
     @Column(name="location")
-    public HashMap<Integer, String> getLocation(){return location;}
+    public String getLocation(){return location;}
 
     @NotNull
     @Column(name="weather")
-    public ArrayList<String> getWeather(){return weather;}
+    public String getWeather(){return weather;}
 
     @NotNull
     @Column(name="bait")
@@ -64,19 +63,19 @@ public class Fish extends AbstractEntity {
         this.name = name;
     }
 
-    public void setEorzeanTime(String eorzeanTime) {
-        this.eorzeanTime = eorzeanTime;
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public void setAuthor(User author) {
         this.author = author;
     }
 
-    public void setLocation(HashMap<Integer, String> location) {
+    public void setLocation(String location) {
         this.location = location;
     }
 
-    public void setWeather(ArrayList<String> weather) {
+    public void setWeather(String weather) {
         this.weather = weather;
     }
 

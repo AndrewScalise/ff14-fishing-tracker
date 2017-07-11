@@ -79,13 +79,13 @@ public class AuthenticationController extends AbstractController {
         }
         else{
             loginHelper(request, user);
-            return "redirect:/";
+            return "redirect:/index";
         }
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest request){
         request.getSession().invalidate();
-        return "redirect:/";
+        return "redirect:/index";
     }
 }
