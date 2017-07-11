@@ -79,6 +79,7 @@ public class User extends AbstractEntity {
         return matcher.matches();
     }
 
+    //Add fish to list owned by specific user
     protected void addFish(Fish fish) {fishes.add(fish);}
 
     @OneToMany

@@ -18,13 +18,13 @@ public class Fish extends AbstractEntity {
     private String name;
     private Time eorzeanTime;
     private User author;
-    private String location;
-    private String weather;
-    private String bait;
+    private HashMap<String, Integer> location;
+    private ArrayList<String> weather;
+    private ArrayList<String> bait;
 
     public Fish() {}
 
-    public Fish(String name, Time eorzeanTime, User author, String location, String weather, String bait){
+    public Fish(String name, Time eorzeanTime, User author, HashMap<String, Integer> location, ArrayList<String> weather, ArrayList<String> bait){
         super();
 
         this.name = name;
@@ -47,13 +47,13 @@ public class Fish extends AbstractEntity {
 
     @NotNull
     @Column(name="location")
-    public String getLocation(){return location;}
+    public HashMap<String, Integer> getLocation(){return location;}
 
     @NotNull
     @Column(name="weather")
-    public String getWeather(){return weather;}
+    public ArrayList<String> getWeather(){return weather;}
 
     @NotNull
     @Column(name="bait")
-    public String getBait(){return bait;}
+    public ArrayList<String> getBait(){return bait;}
 }
