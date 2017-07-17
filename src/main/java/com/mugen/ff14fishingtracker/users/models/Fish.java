@@ -1,10 +1,14 @@
 package com.mugen.ff14fishingtracker.users.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.sql.Time;
 import java.util.HashMap;
 
 /**
@@ -33,11 +37,14 @@ public class Fish extends AbstractEntity {
         this.weather = weather;
         this.bait = bait;
 
+
+
         author.addFish(this);
     }
 
     @NotNull
     @Column(name="name")
+    @Size(min=1, max=20)
     public String getName() {return name;}
 
     @NotNull
@@ -54,6 +61,7 @@ public class Fish extends AbstractEntity {
 
     @NotNull
     @Column(name="bait")
+    @Size(min=1, message = "Must specify bait")
     public String getBait(){return bait;}
 
     @ManyToOne
