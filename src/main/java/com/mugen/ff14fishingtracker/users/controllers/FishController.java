@@ -132,7 +132,9 @@ public class FishController extends AbstractController {
             return "/index";
         }
         else if(!error.equals(null)){
-            return "You must be logged in to add a fish!";
+            String errored = "You must be logged in to add a fish";
+            model.addAttribute("error", errored);
+            return "addFish";
         }
 
         String userName = user.getUsername();
