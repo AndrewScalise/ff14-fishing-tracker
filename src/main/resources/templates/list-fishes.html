@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<p th:unless="${fishes} and ${fishes.size()}">No Fish :(</p>
+
+
+<table class="table">
+
+    <tr>
+        <th>Name</th>
+        <th>Time</th>
+        <th>Location</th>
+        <th>Weather</th>
+        <th>Bait</th>
+    </tr>
+
+    <tr th:each="fish : ${fishes}">
+        <td th:text="${fish.name}"></td>
+        <td th:text="${fish.time}"></td>
+        <td th:text="${fish.location}"></td>
+        <td th:text="${fish.weather}"></td>
+        <td th:text="${fish.bait}"></td>
+    </tr>
+
+</table>
+
+<a href="/addFish">Add</a> |
+<a href="/remove">Remove</a>
+
+</body>
+</html>

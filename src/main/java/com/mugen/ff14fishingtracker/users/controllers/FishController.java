@@ -6,6 +6,7 @@ import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Mugen on 7/11/2017.
@@ -133,7 +135,22 @@ public class FishController extends AbstractController {
             return "You must be logged in to add a fish!";
         }
 
-        return "redirect:/index";
+        String userName = user.getUsername();
+
+        return "redirect:/" +userName;
+    }
+
+    @RequestMapping(value="/{username}", method = RequestMethod.GET)
+    public String userFish(@PathVariable String username, Model model){
+        //get all of the user's fishes
+        User user = userDao.findByUsername(username);
+
+        List<Fish> listOfFishes = user.getFishes();
+
+        //pass the fishes into the template
+        model.addAttribute("fishes", listOfFishes);
+
+        return "list-fishes";
     }
 
 
