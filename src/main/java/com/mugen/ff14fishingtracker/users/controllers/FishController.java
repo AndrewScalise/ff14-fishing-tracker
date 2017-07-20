@@ -220,15 +220,36 @@ public class FishController extends AbstractController {
         HttpSession session = request.getSession(true);
         int uid = (int)session.getAttribute(userSessionKey);
 
-        model.addAttribute("fishes", fishDao.findAll());
+        List<Fish> allFish = fishDao.findAll();
+        List<Fish> currentFish = new ArrayList<>();
+        for(Fish temp : allFish){
+            if (temp.getAuthor().getUid() == uid){
+                currentFish.add(temp);
+            }
+        }
+
+
+
+        model.addAttribute("fishes", currentFish);
         model.addAttribute("title", "Remove Fish");
         return "/remove";
     }
 
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
-    public String processRemoveFishForm(@RequestParam int[] ids){
+    public String processRemoveFishForm(@RequestParam(required=false) int[] ids, Model model){
 
+
+        //Check to see if there are fishes
+        if(ids == null){
+            String errored = "There are no fish to remove";
+            model.addAttribute("title", "Remove Fish");
+            model.addAttribute("error", errored);
+            return "/remove";
+        }
+
+        //If there is a list then delete the fish that were clicked
         for(int id: ids){
+
             fishDao.delete(id);
         }
 

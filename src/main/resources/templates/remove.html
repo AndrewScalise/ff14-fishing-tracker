@@ -7,6 +7,8 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
+<p th:unless="${fishes} and ${fishes.size()}">No Fish :(</p>
+
 <form method="post">
 
     <div th:each="fish:${fishes}" class="checkbox">
@@ -17,6 +19,8 @@
 
     <input type="submit" value="Remove Fish" />
 </form>
+
+<div class = "error" th:text="${error}"></div>
 
 </body>
 </html>
