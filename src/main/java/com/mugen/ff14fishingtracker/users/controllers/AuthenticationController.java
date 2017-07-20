@@ -49,7 +49,7 @@ public class AuthenticationController extends AbstractController {
                     model.addAttribute("username", name);
                     model.addAttribute("pwhash", password);
                     loginHelper(request, user);
-                    return "redirect:/";
+                    return "redirect:/index";
                 }
             }
         }
