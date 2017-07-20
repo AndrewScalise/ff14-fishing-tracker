@@ -191,7 +191,7 @@ public class FishController extends AbstractController {
             return "/addFish";
         }
 
-
+        newFish.setAuthor(user);
         fishDao.save(newFish);
         String userName = user.getUsername();
 
@@ -220,7 +220,7 @@ public class FishController extends AbstractController {
         HttpSession session = request.getSession(true);
         int uid = (int)session.getAttribute(userSessionKey);
 
-        model.addAttribute("fishes", fishDao.findByUid(uid));
+        model.addAttribute("fishes", fishDao.findAll());
         model.addAttribute("title", "Remove Fish");
         return "/remove";
     }
