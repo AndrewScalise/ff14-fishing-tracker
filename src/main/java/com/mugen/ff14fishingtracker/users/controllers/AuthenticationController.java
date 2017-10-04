@@ -28,30 +28,27 @@ public class AuthenticationController extends AbstractController {
         // validate parameteres(username, password, verify)
         //if they validate, create a new user, and put them in the session
 
-        if(!User.isValidUsername(name)){
+        if (!User.isValidUsername(name)) {
             String username_error = "That name is not valid";
             model.addAttribute("username_error", username_error);
             return "signup";
-        }
-        else{
-            if(!User.isValidPassword(password)){
-                String password_error = "Invalid password";
-                model.addAttribute("password_error", password_error);
-                return "signup";
-            } else{
-                if(!password.equals(verify)){
-                    String verify_error = "Passwords don't match";
-                    model.addAttribute("verify_error", verify_error);
-                    return "signup";
-                }else{
-                    User user = new User(name, password);
-                    userDao.save(user);
-                    model.addAttribute("username", name);
-                    model.addAttribute("pwhash", password);
-                    loginHelper(request, user);
-                    return "redirect:/index";
-                }
-            }
+        } else if (!User.isValidPassword(password)) {
+            String password_error = "Invalid password";
+            model.addAttribute("username", name);
+            model.addAttribute("password_error", password_error);
+            return "signup";
+        } else if (!password.equals(verify)) {
+            String verify_error = "Passwords don't match";
+            model.addAttribute("username", name);
+            model.addAttribute("verify_error", verify_error);
+            return "signup";
+        } else {
+            User user = new User(name, password);
+            userDao.save(user);
+            model.addAttribute("username", name);
+            model.addAttribute("pwhash", password);
+            loginHelper(request, user);
+            return "redirect:/index";
         }
     }
 

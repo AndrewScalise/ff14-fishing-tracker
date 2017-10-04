@@ -19,11 +19,26 @@ public class IndexController extends AbstractController{
     @RequestMapping(value = "/index")
     public String index(HttpServletRequest request, Model model){
 
+        //Get current user id
+        HttpSession session = request.getSession(true);
+        int uid = (int)session.getAttribute(userSessionKey);
+
         // Fetch users and pass to template
         List<User> users = userDao.findAll();
 
+        //make current user object
+        User user = userDao.findByUid(uid);
+
+        //get current user name
+        String name = user.getUsername();
+
         String fishingList = "fishing List";
 
+        if(name == null){
+            model.addAttribute("username", "");
+        }else {
+            model.addAttribute("username", name);
+        }
         model.addAttribute("users", users);
         model.addAttribute("fishingList", fishingList);
 

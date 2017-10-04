@@ -20,11 +20,12 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
 
-        List<String> authPages = Arrays.asList("/addFish");
-        List<String> authPagesTwo = Arrays.asList("/remove");
+        List<String> authPagesOne = Arrays.asList("/index");
+        List<String> authPagesTwo = Arrays.asList("/addFish");
+        List<String> authPagesThree = Arrays.asList("/remove");
 
         // Require sign-in for auth pages
-        if ( authPages.contains(request.getRequestURI()) || authPagesTwo.contains(request.getRequestURI())) {
+        if ( authPagesOne.contains(request.getRequestURI()) || authPagesTwo.contains(request.getRequestURI()) || authPagesThree.contains(request.getRequestURI())) {
 
             boolean isLoggedIn = false;
             User user;
