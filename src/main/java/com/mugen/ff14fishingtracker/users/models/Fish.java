@@ -2,10 +2,7 @@ package com.mugen.ff14fishingtracker.users.models;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Time;
@@ -22,12 +19,13 @@ public class Fish extends AbstractEntity {
     private String time;
     private User author;
     private String location;
+    private int locationID;
     private String weather;
     private String bait;
 
     public Fish() {}
 
-    public Fish(String name, String time, User author, String location, String weather, String bait){
+    public Fish(String name, String time, User author, String location, int locationID, String weather, String bait){
         super();
 
         this.name = name;
@@ -36,6 +34,7 @@ public class Fish extends AbstractEntity {
         this.location = location;
         this.weather = weather;
         this.bait = bait;
+        this.locationID = locationID;
 
 
 
@@ -54,6 +53,10 @@ public class Fish extends AbstractEntity {
     @NotNull
     @Column(name="location")
     public String getLocation(){return location;}
+
+    @NotNull
+    @Column(name="locationID")
+    public int getLocationID(){return locationID;}
 
     @NotNull
     @Column(name="weather")
@@ -82,6 +85,8 @@ public class Fish extends AbstractEntity {
     public void setLocation(String location) {
         this.location = location;
     }
+
+    public void setLocationID(int locationID){this.locationID = locationID;}
 
     public void setWeather(String weather) {
         this.weather = weather;

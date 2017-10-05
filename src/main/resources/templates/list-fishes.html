@@ -22,7 +22,7 @@
     </tr>
 
     <tr th:each="fish : ${fishes}">
-        <td th:text="${fish.name}"></td>
+       <td><a th:href="@{'https://www.garlandtools.org/db/#fishing/' + ${fish.locationID}}" th:text="${fish.name}"></a></td>
         <td th:text="${fish.time}"></td>
         <td th:text="${fish.location}"></td>
         <td th:text="${fish.weather}"></td>
